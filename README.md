@@ -1,6 +1,6 @@
 # oai-tts-mcp
 
-一个通过 **stdio** 运行的 OpenAI 兼容 TTS MCP 服务。AI 可调用它来：
+一个 OpenAI 兼容 TTS MCP 服务。AI 可调用它来：
 
 1. 查询当前模型的可用音色；
 2. 将文本按指定音色和语气转换为音频。
@@ -22,6 +22,30 @@
 - Node.js `>= 20`
 - pnpm
 - 有效的 OpenAI 或 OpenAI 兼容 TTS 服务地址与 API Key
+
+## 通过 npx 使用
+
+发布到 npm 后，无需全局安装。MCP 客户端可直接调用：
+
+```json
+{
+  "mcpServers": {
+    "oai-tts": {
+      "command": "npx",
+      "args": ["-y", "oai-tts-mcp"],
+      "env": {
+        "OAI_TTS_BASE_URL": "https://api.openai.com/v1",
+        "OAI_TTS_API_KEY": "your_api_key_here",
+        "OAI_TTS_MODEL": "gpt-4o-mini-tts",
+        "OAI_TTS_VOICE": "marin",
+        "URUSAI_API_TOKEN": "your_optional_urusai_token"
+      }
+    }
+  }
+}
+```
+
+`npx -y` 会下载并启动 npm 上的最新版本。请始终通过客户端的受保护环境变量注入 Key/Token，勿将真实凭据写入配置仓库。
 
 ## 安装
 
@@ -113,13 +137,13 @@ pnpm dev
 
 参数：
 
-| 参数 | 必填 | 说明 |
-| --- | --- | --- |
-| `input` | 是 | 要朗读的文本，最多 4096 个字符。 |
-| `voice` | 否 | 音色 ID；缺省时使用 `OAI_TTS_VOICE`。 |
-| `instructions` | 否 | 语气、情绪、节奏、口音或表达方式；`gpt-4o-mini-tts` 支持效果最佳。 |
-| `speed` | 否 | 语速倍率，默认 `1.25`，范围 `0.25`–`4`。 |
-| `response_format` | 否 | `mp3`（默认）、`opus`、`aac`、`flac`、`wav` 或 `pcm`。 |
+| 参数                | 必填 | 说明                                                                 |
+| ------------------- | ---- | -------------------------------------------------------------------- |
+| `input`           | 是   | 要朗读的文本，最多 4096 个字符。                                     |
+| `voice`           | 否   | 音色 ID；缺省时使用`OAI_TTS_VOICE`。                               |
+| `instructions`    | 否   | 语气、情绪、节奏、口音或表达方式；`gpt-4o-mini-tts` 支持效果最佳。 |
+| `speed`           | 否   | 语速倍率，默认`1.25`，范围 `0.25`–`4`。                       |
+| `response_format` | 否   | `mp3`（默认）、`opus`、`aac`、`flac`、`wav` 或 `pcm`。   |
 
 成功时工具仅返回文本 JSON 和结构化结果，其中 `url` 是图床返回的公开直链：
 

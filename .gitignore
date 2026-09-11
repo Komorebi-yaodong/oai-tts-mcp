@@ -3,3 +3,5 @@ dist/
 .env
 output/
 *.log
+
+进度.md

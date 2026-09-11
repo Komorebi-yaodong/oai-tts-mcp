@@ -1,21 +1,42 @@
 {
   "name": "oai-tts-mcp",
   "version": "0.1.0",
-  "private": true,
-  "description": "An OpenAI-compatible text-to-speech MCP server with voice discovery and fallback.",
+  "description": "OpenAI-compatible TTS MCP server with voice discovery and public audio URLs.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "tts",
+    "text-to-speech",
+    "openai",
+    "audio"
+  ],
+  "author": "Komorebi",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "oai-tts-mcp": "./dist/index.js"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
-    "check": "tsc -p tsconfig.json --noEmit"
+    "check": "tsc -p tsconfig.json --noEmit",
+    "prepack": "pnpm build",
+    "prepublishOnly": "pnpm check"
   },
   "engines": {
     "node": ">=20"
   },
+  "packageManager": "pnpm@10.28.0",
+  "publishConfig": {
+    "access": "public"
+  },
+
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^3.24.2"
